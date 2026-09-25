@@ -1,0 +1,6 @@
+out/stills/
+out/*.wav
+out/level254_video.mp4
+out/render.log
+out/sheet*.jpg
+__pycache__/
