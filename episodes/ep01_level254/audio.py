@@ -1,195 +1,34 @@
 """
-Score and sound design for LEVEL 254 — "BLUE HEAVEN", synthesised from scratch.
-
-    python film/audio.py            # -> out/level254_audio.wav
+Ep01 — LEVEL 254 "Blue Heaven": score and sound design, synthesised from scratch.
+build() returns the un-mastered stereo mix; the runner masters it and adds the voice.
 """
 import math
-import os
-import sys
-import wave
 
 import numpy as np
-from scipy import signal
 
-sys.path.insert(0, os.path.dirname(__file__))
-from film import (  # noqa: E402
-    OUT, CARD_OPEN, CARD_END, T_HALL, T_NOCLIP, T_VOID, T_ZOOM, T_RING, T_AISLE, T_SEAT, T_RISE,
+from backrooms import sound as snd
+from backrooms.sound import (
+    SR, Bus, mf, tvec, sos_filter, noise, adsr, piano, bell, pad_note, choir_note, vowel,
+    reverb_ir, reverb, click, thump, whoosh,
+)
+from .film import (
+    DURATION, CARD_OPEN, CARD_END, T_HALL, T_NOCLIP, T_VOID, T_ZOOM, T_RING, T_AISLE, T_SEAT, T_RISE,
     T_SKY, T_FALL, T_CITY, T_END, aisle_y,
 )
-from level254 import DURATION  # noqa: E402
 
-SR = 48000
 N = int(DURATION * SR)
 rng = np.random.default_rng(254)
 
 
-def mf(m):
-    return 440.0 * 2 ** ((m - 69) / 12)
+def env_curve(points):
+    return snd.env_curve(points, N)
 
 
-def tvec(dur):
-    return np.arange(int(dur * SR)) / SR
-
-
-def env_curve(points, n=N):
-    """piecewise-linear envelope over the whole film from [(sec, value), ...]"""
-    ts = np.array([p[0] for p in points]) * SR
-    vs = np.array([p[1] for p in points])
-    return np.interp(np.arange(n), ts, vs)
-
-
-class Bus:
-    def __init__(self):
-        self.x = np.zeros((2, N))
-
-    def add(self, start, sig, pan=0.0, gain=1.0):
-        i0 = int(start * SR)
-        if i0 >= N:
-            return
-        if sig.ndim == 1:
-            l = math.cos((pan + 1) * math.pi / 4)
-            r = math.sin((pan + 1) * math.pi / 4)
-            sig = np.stack([sig * l, sig * r])
-        if i0 < 0:
-            sig = sig[:, -i0:]
-            i0 = 0
-        n = min(sig.shape[1], N - i0)
-        self.x[:, i0:i0 + n] += sig[:, :n] * gain
-
-
-def sos_filter(x, kind, freq, order=2):
-    sos = signal.butter(order, freq, btype=kind, fs=SR, output="sos")
-    return signal.sosfilt(sos, x, axis=-1)
-
-
-def noise(n):
-    return rng.standard_normal(n)
-
-
-def adsr(n, a=0.01, r=0.1):
-    e = np.ones(n)
-    na, nr = int(a * SR), int(r * SR)
-    if na:
-        e[:na] = np.linspace(0, 1, na)
-    if nr:
-        e[-nr:] *= np.linspace(1, 0, nr)
-    return e
-
-
-# ----------------------------------------------------------------------------
-# instruments
-# ----------------------------------------------------------------------------
-def piano(m, dur=3.0, vel=1.0, detune_cents=0.0):
-    f = mf(m) * 2 ** (detune_cents / 1200)
-    t = tvec(dur)
-    out = np.zeros_like(t)
-    B = 0.0004
-    for n in range(1, 10):
-        fn = f * n * math.sqrt(1 + B * n * n)
-        if fn > 12000:
-            break
-        amp = vel / n ** 1.3
-        dec = 0.7 + 0.45 * n
-        out += amp * np.sin(2 * math.pi * fn * t + rng.uniform(0, 6.28)) * np.exp(-t * dec)
-    att = np.minimum(t / 0.004, 1)
-    hammer = noise(len(t)) * np.exp(-t * 90) * 0.08 * vel
-    return (out * att + hammer) * adsr(len(t), 0, 0.08)
-
-
-def bell(f, dur=6.0, amp=1.0):
-    t = tvec(dur)
-    out = np.zeros_like(t)
-    for ratio, a, d in ((1, 1, 0.5), (2.76, 0.5, 0.9), (5.40, 0.25, 1.6), (8.93, 0.12, 2.5), (0.5, 0.35, 0.35)):
-        out += a * np.sin(2 * math.pi * f * ratio * t) * np.exp(-t * d)
-    return out * np.minimum(t / 0.003, 1) * amp
-
-
-def saw(freq_t, sr=SR):
-    ph = np.cumsum(freq_t / sr)
-    return 2 * (ph % 1.0) - 1
-
-
-def pad_note(m, dur, amp=1.0, bright=0.3, a=4.0, r=5.0):
-    t = tvec(dur)
-    f = mf(m)
-    out = np.zeros_like(t)
-    for dc in (-6, 0, 7):
-        ff = f * 2 ** (dc / 1200)
-        ph = rng.uniform(0, 6.28)
-        out += np.sin(2 * math.pi * ff * t + ph) + bright * np.sin(4 * math.pi * ff * t + ph) * 0.5
-    lfo = 0.75 + 0.25 * np.sin(2 * math.pi * rng.uniform(0.05, 0.12) * t + rng.uniform(0, 6))
-    e = np.minimum(t / a, 1) * np.minimum((dur - t) / r, 1)
-    return out * lfo * np.clip(e, 0, 1) ** 2 * amp / 3
-
-
-def choir_note(m, dur, amp=1.0, a=5.0, r=6.0):
-    t = tvec(dur)
-    f = mf(m)
-    out = np.zeros_like(t)
-    for v in range(6):
-        cents = rng.uniform(-11, 11)
-        vib = 1 + 0.004 * np.sin(2 * math.pi * rng.uniform(4.6, 5.6) * t + rng.uniform(0, 6))
-        drift = 1 + 0.002 * np.sin(2 * math.pi * 0.13 * t + v)
-        out += saw(f * 2 ** (cents / 1200) * vib * drift)
-    e = np.minimum(t / a, 1) * np.minimum((dur - t) / r, 1)
-    return out * np.clip(e, 0, 1) ** 1.5 * amp / 6
-
-
-def vowel_ah(x):
-    y = np.zeros_like(x)
-    for fc, bw, g in ((750, 130, 1.0), (1150, 150, 0.55), (2600, 250, 0.22), (3300, 300, 0.12)):
-        sos = signal.butter(2, [fc - bw, fc + bw], btype="bandpass", fs=SR, output="sos")
-        y += g * signal.sosfilt(sos, x, axis=-1)
-    return y + 0.15 * sos_filter(x, "lowpass", 400)
-
-
-def reverb_ir(seconds=4.5, decay=1.6, lp=6000):
-    n = int(seconds * SR)
-    t = np.arange(n) / SR
-    ir = np.zeros((2, n))
-    for c in range(2):
-        nz = sos_filter(noise(n), "lowpass", lp)
-        ir[c] = nz * np.exp(-t * 6.9 / (decay * 2.2))
-    ir[:, : int(0.012 * SR)] = 0
-    return ir / np.sqrt((ir ** 2).sum(1, keepdims=True))
-
-
-def reverb(x, ir, wet=0.5):
-    y = np.stack([signal.fftconvolve(x[0], ir[0])[:N], signal.fftconvolve(x[1], ir[1])[:N]])
-    return x * (1 - wet) + y * wet
-
-
-def click(amp=1.0, hp=2500, dur=0.012):
-    n = int(dur * SR)
-    return sos_filter(noise(n), "highpass", hp) * np.exp(-np.arange(n) / (0.002 * SR)) * amp
-
-
-def thump(f=55, dur=0.35, amp=1.0):
-    t = tvec(dur)
-    return np.sin(2 * math.pi * f * t * (1 + 0.6 * np.exp(-t * 25))) * np.exp(-t * 11) * amp
-
-
-def whoosh(dur, f0, f1, amp=1.0):
-    n = int(dur * SR)
-    x = noise(n)
-    out = np.zeros(n)
-    seg = 2048
-    fs = np.geomspace(f0, f1, n // seg + 1)
-    for k in range(0, n, seg):
-        sos = signal.butter(2, [fs[k // seg] * 0.7, fs[k // seg] * 1.4], btype="bandpass", fs=SR, output="sos")
-        out[k:k + seg] = signal.sosfilt(sos, x[max(0, k - 512):k + seg])[-len(out[k:k + seg]):]
-    e = np.sin(np.linspace(0, math.pi, n)) ** 2
-    return out * e * amp
-
-
-# ----------------------------------------------------------------------------
-# build
-# ----------------------------------------------------------------------------
 def build():
-    dry = Bus()     # direct sound
-    hall = Bus()    # small room reverb (Level 287)
-    heaven = Bus()  # enormous reverb (Level 254)
-    choir = Bus()   # formant-filtered, then heaven
+    dry = Bus(DURATION)     # direct sound
+    hall = Bus(DURATION)    # small room reverb (Level 287)
+    heaven = Bus(DURATION)  # enormous reverb (Level 254)
+    choir = Bus(DURATION)   # formant-filtered, then heaven
 
     # --- tape hiss bed
     hiss = sos_filter(noise(N), "highpass", 1800) * 0.5 + sos_filter(noise(N), "bandpass", [200, 1200]) * 0.3
@@ -243,7 +82,7 @@ def build():
     ]
     harm = [(45, (60, 64)), (50, (65, 69)), (40, (56, 62)), (45, (60, 64)), (45, (60, 64)), (40, (56, 59)), (40, (62, 65)), (45, (60, 64))]
     p_start = T_HALL + 0.8
-    pb = Bus()
+    pb = Bus(DURATION)
     for bar, bt, m, ln in mel:
         at = p_start + (bar * 3 + bt) * beat
         pb.add(at + rng.uniform(0, 0.03), piano(m, 3.5, 0.9, rng.uniform(-18, 18)), 0.2)
@@ -393,7 +232,7 @@ def build():
     print("reverbs…", flush=True)
     small = reverb_ir(1.2, 0.7, 5000)
     big = reverb_ir(7.0, 5.5, 5200)
-    ch = vowel_ah(choir.x)
+    ch = vowel(choir.x, "a")
     mix = dry.x + reverb(hall.x, small, 0.45) + reverb(heaven.x + ch * 3.4, big, 0.6)
     # hard cuts: everything stops dead at the no-clips
     for c in (T_FALL,):
@@ -407,29 +246,8 @@ def build():
     # post-fall: re-add Level 11 / card material that lives in hall/heaven buses after the cut
     post = reverb(hall.x * (np.arange(N) >= int(T_FALL * SR)), small, 0.45) + reverb(heaven.x * (np.arange(N) >= int(T_FALL * SR)), big, 0.62)
     mix += post
-    mix = sos_filter(mix, "highpass", 22)
-    peak = np.abs(mix).max()
-    mix = np.tanh(mix / peak * 1.25) / math.tanh(1.25) * 0.93
-    fade_out = env_curve([(0, 1), (DURATION - 1.5, 1), (DURATION, 0)])
-    return mix * fade_out
+    return mix
 
 
 def ramp_py(x, a, b):
     return min(max((x - a) / (b - a), 0.0), 1.0)
-
-
-def main():
-    mix = build()
-    os.makedirs(OUT, exist_ok=True)
-    path = os.path.join(OUT, "level254_audio.wav")
-    pcm = (np.clip(mix.T, -1, 1) * 32767).astype("<i2")
-    with wave.open(path, "wb") as w:
-        w.setnchannels(2)
-        w.setsampwidth(2)
-        w.setframerate(SR)
-        w.writeframes(pcm.tobytes())
-    print(path)
-
-
-if __name__ == "__main__":
-    main()

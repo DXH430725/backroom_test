@@ -1,27 +1,21 @@
 """
-Timeline, cameras, captions and post-processing for LEVEL 254 — "BLUE HEAVEN".
+Ep01 — LEVEL 254 "Blue Heaven": timeline, cameras, captions.
 
-    python film/film.py --still 40,90,150          # write stills to out/stills
-    python film/film.py --render                   # full film -> out/level254_video.mp4 (no audio)
+    python -m backrooms.render ep01_level254 --still 40,90,150
+    python -m backrooms.render ep01_level254 --all [--res 4k]
 """
-import argparse
 import math
-import os
-import subprocess
-import sys
-import time
-from multiprocessing import Pool
 
 import numpy as np
 
-sys.path.insert(0, os.path.dirname(__file__))
-from level254 import (  # noqa: E402
-    W, H, FPS, DURATION, F0, FONT_CJK, FONT_SERIF, FONT_MONO, FONT_ITALIC, CIRCLE, SEAT,
-    Cam, handheld, blue_scene, hall_scene, city_scene, put_text, vhs, glitch, static, grain,
-    vignette, hud, fmt_tc, smooth, smoother, ramp, lerp,
+from backrooms.core import (
+    W1, H1, FPS, F0, FONT_CJK, FONT_SERIF, Cam, handheld, look_at, put_text, static, fmt_tc,
+    smooth, smoother, ramp, lerp, draw_card, card_bg, finish,
 )
+from .scene import CIRCLE, SEAT, blue_scene, hall_scene, city_scene
 
-OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "out")
+TITLE = "LEVEL 254 —「蓝色天堂」Blue Heaven"
+DURATION = 205.0
 
 # ----------------------------------------------------------------------------
 # shot list (seconds)
@@ -54,6 +48,7 @@ SUBS = [
     (126.4, 131.0, "「所有的烦恼都消失了。」", "“All of your troubles are gone.”"),
     (131.8, 136.8, "「外面的世界，已经不重要了。」", "“The outside world doesn’t matter.”"),
     (166.0, 171.5, "「一切，都只是蓝色。」", "“Everything is just blue.”"),
+    (173.4, 175.9, "「那你的队员呢？」", "\u201cAnd your team?\u201d"),
     (176.4, 180.6, "「我的队员还在那里。……那是值得的。」", "“My team is still there. …It was worth it.”"),
     (T_CITY + 0.2, T_CITY + 2.8, "出口：穿过地板 no-clip → LEVEL 11", "EXIT: no-clip through the floor → Level 11"),
 ]
@@ -91,13 +86,6 @@ def _outer_figure():
 
 
 HERO, HERO_YAW = _outer_figure()
-
-
-def look_at(pos, target):
-    d = np.asarray(target, float) - np.asarray(pos, float)
-    yaw = math.degrees(math.atan2(d[0], d[1]))
-    pitch = math.degrees(math.atan2(d[2], math.hypot(d[0], d[1])))
-    return yaw, pitch
 
 
 # ----------------------------------------------------------------------------
@@ -208,31 +196,6 @@ def cam_rise(t):
 # ----------------------------------------------------------------------------
 # frame
 # ----------------------------------------------------------------------------
-def draw_card(img, lines, lt, x0=260, y0=300, dy=64, size=38, cps=18):
-    for text, start in lines:
-        if not text:
-            continue
-        n = int(max(0, lt - start) * cps)
-        if n <= 0:
-            continue
-        shown = text[:n]
-        cursor = "▌" if n < len(text) and (lt * 3) % 1 < 0.6 else ""
-        put_text(img, shown + cursor, x0, y0, size, FONT_CJK, (0.86, 0.9, 0.95), 1.0, shadow=0, anchor="left")
-        y0 += dy
-    return y0
-
-
-def subtitles(img, t, letterbox):
-    for a, b, zh, en in SUBS:
-        if a <= t <= b:
-            op = min(1, (t - a) / 0.5, (b - t) / 0.5)
-            yb = H - (175 if letterbox < 0.5 else 70)
-            if letterbox > 0.5:
-                yb = H - 60
-            put_text(img, zh, W / 2, yb - 50, 44, FONT_CJK, (1, 1, 1), op, shadow=0.75)
-            put_text(img, en, W / 2, yb + 2, 28, FONT_ITALIC, (0.86, 0.9, 1.0), op * 0.9, shadow=0.7)
-
-
 def render_frame(fi):
     t = fi / FPS
     rng = np.random.default_rng(fi * 7919 + 13)
@@ -248,7 +211,7 @@ def render_frame(fi):
     img = None
 
     if t < T_HALL:
-        img = np.full((H, W, 3), (0.012, 0.014, 0.02), np.float32)
+        img = card_bg()
         lt = t
         draw_card(img, CARD_OPEN, lt)
         gr = 0.03
@@ -302,9 +265,9 @@ def render_frame(fi):
         # title
         a = smooth(ramp(t, 43.0, 45.2)) * (1 - smooth(ramp(t, 49.6, 51.4)))
         if a > 0:
-            put_text(img, "LEVEL 254", W / 2, H / 2 - 40, 118, FONT_SERIF, (1, 1, 1), a, tracking=0.32, shadow=0.35, glow=0.35)
-            put_text(img, "B L U E    H E A V E N", W / 2, H / 2 + 62, 34, FONT_SERIF, (0.92, 0.95, 1), a * 0.95, shadow=0.35)
-            put_text(img, "蓝 色 天 堂", W / 2, H / 2 + 118, 34, FONT_CJK, (0.92, 0.95, 1), a * 0.85, shadow=0.35)
+            put_text(img, "LEVEL 254", W1 / 2, H1 / 2 - 40, 118, FONT_SERIF, (1, 1, 1), a, tracking=0.32, shadow=0.35, glow=0.35)
+            put_text(img, "B L U E    H E A V E N", W1 / 2, H1 / 2 + 62, 34, FONT_SERIF, (0.92, 0.95, 1), a * 0.95, shadow=0.35)
+            put_text(img, "蓝 色 天 堂", W1 / 2, H1 / 2 + 118, 34, FONT_CJK, (0.92, 0.95, 1), a * 0.85, shadow=0.35)
 
     elif t < T_RING:
         cam, zoom = cam_zoom(t)
@@ -330,8 +293,8 @@ def render_frame(fi):
         fade = ((0, 0, 0), 1 - ramp(t, T_RING, T_RING + 0.3))
         a = smooth(ramp(t, 77.6, 79)) * (1 - smooth(ramp(t, 82.4, 83.4)))
         if a > 0:
-            put_text(img, "THE MEDITATION CIRCLE", W / 2, H / 2 - 20, 60, FONT_SERIF, (1, 1, 1), a, tracking=0.25, shadow=0.5, glow=0.25)
-            put_text(img, "冥 想 圈", W / 2, H / 2 + 60, 40, FONT_CJK, (1, 1, 1), a, shadow=0.5)
+            put_text(img, "THE MEDITATION CIRCLE", W1 / 2, H1 / 2 - 20, 60, FONT_SERIF, (1, 1, 1), a, tracking=0.25, shadow=0.5, glow=0.25)
+            put_text(img, "冥 想 圈", W1 / 2, H1 / 2 + 60, 40, FONT_CJK, (1, 1, 1), a, shadow=0.5)
 
     elif t < T_SEAT:
         # time-lapse: motion-blurred sub-frames
@@ -398,79 +361,18 @@ def render_frame(fi):
 
     else:
         lt = t - T_END
-        img = np.full((H, W, 3), (0.012, 0.014, 0.02), np.float32)
+        img = card_bg()
         yend = draw_card(img, CARD_END, lt, y0=250, size=36, dy=60)
         a = smooth(ramp(lt, 10.6, 12.4))
         if a > 0:
-            put_text(img, "「让我回去。」", W / 2, 820, 64, FONT_CJK, (0.45, 0.66, 1.0), a, shadow=0, glow=0.6 * a)
+            put_text(img, "「让我回去。」", W1 / 2, 820, 64, FONT_CJK, (0.45, 0.66, 1.0), a, shadow=0, glow=0.6 * a)
         b = smooth(ramp(lt, 13.4, 14.4))
         if b > 0:
-            put_text(img, "[ 本档案已依据 Mass Trimming Project 归档 · 信息可能不完整 ]", W / 2, H - 90, 24, FONT_CJK, (0.5, 0.52, 0.58), b, shadow=0)
+            put_text(img, "[ 本档案已依据 Mass Trimming Project 归档 · 信息可能不完整 ]", W1 / 2, H1 - 90, 24, FONT_CJK, (0.5, 0.52, 0.58), b, shadow=0)
         gr = 0.03
         vh = 0.3
         gl = 0.8 * (1 - ramp(t, T_END, T_END + 0.4))
         fade = ((0, 0, 0), smooth(ramp(t, DURATION - 2.0, DURATION)))
 
-    # ---- post
-    img = vhs(img, vh, rng, t)
-    img = glitch(img, gl, rng)
-    img = grain(img, gr, rng)
-    img = vignette(img, 0.55 if lb < 0.5 else 0.35)
-    hud(img, t, hud_a, tc, level, zoomtxt)
-    if lb > 0:
-        bar = int(lb * (H - W / 2.39) / 2)
-        if bar > 0:
-            img[:bar] = 0
-            img[H - bar:] = 0
-    subtitles(img, t, lb)
-    if fade is not None and fade[1] > 0:
-        img = img * (1 - fade[1]) + np.array(fade[0], np.float32) * fade[1]
-    return (np.clip(img, 0, 1) * 255 + 0.5).astype(np.uint8)
-
-
-def _worker(fi):
-    return fi, render_frame(fi).tobytes()
-
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--still", default="")
-    ap.add_argument("--render", action="store_true")
-    ap.add_argument("--start", type=float, default=0.0)
-    ap.add_argument("--end", type=float, default=DURATION)
-    ap.add_argument("--jobs", type=int, default=os.cpu_count())
-    ap.add_argument("--out", default=os.path.join(OUT, "level254_video.mp4"))
-    args = ap.parse_args()
-    os.makedirs(OUT, exist_ok=True)
-    if args.still:
-        from PIL import Image
-        os.makedirs(os.path.join(OUT, "stills"), exist_ok=True)
-        for s in args.still.split(","):
-            t = float(s)
-            t0 = time.time()
-            fr = render_frame(int(round(t * FPS)))
-            p = os.path.join(OUT, "stills", f"t{t:06.1f}.jpg")
-            Image.fromarray(fr).save(p, quality=90)
-            print(p, f"{time.time() - t0:.2f}s", flush=True)
-    if args.render:
-        import imageio_ffmpeg
-        ff = imageio_ffmpeg.get_ffmpeg_exe()
-        f0, f1 = int(args.start * FPS), int(args.end * FPS)
-        cmd = [ff, "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
-               "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "slow", "-crf", "19",
-               "-tune", "grain", "-pix_fmt", "yuv420p", args.out]
-        p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-        t0 = time.time()
-        with Pool(args.jobs) as pool:
-            for n, (fi, buf) in enumerate(pool.imap(_worker, range(f0, f1), chunksize=2)):
-                p.stdin.write(buf)
-                if n % 48 == 0:
-                    el = time.time() - t0
-                    print(f"frame {fi}/{f1}  {el:.0f}s elapsed  eta {el / (n + 1) * (f1 - f0 - n - 1):.0f}s", flush=True)
-        p.stdin.close()
-        p.wait()
-        print("done", args.out, f"{time.time() - t0:.0f}s")
-
-
-if __name__ == "__main__":
-    main()
+    return finish(img, rng, t, vh=vh, gl=gl, gr=gr, vig=0.55 if lb < 0.5 else 0.35,
+                  hud_args=dict(alpha=hud_a, tc=tc, level=level, center=zoomtxt), lb=lb, subs=SUBS, fade=fade)

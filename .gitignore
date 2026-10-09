@@ -1,8 +1,5 @@
-out/stills/
-out/*.wav
-out/level254_video.mp4
-out/render.log
-out/sheet*.jpg
+# renders: only the small 1080p delivery copies are committed
+out/**
+!out/*/
+!out/*/*_1080p_web.mp4
 __pycache__/
-out/level254_master.mp4
-out/level254_preview_720p.mp4
