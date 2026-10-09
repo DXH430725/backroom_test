@@ -12,6 +12,7 @@
 | 04 | [Level 881 —「窗之庭院」The Courtyard of Windows](episodes/ep04_level881/) | 3:18 | `out/ep04_level881/ep04_level881_1080p_web.mp4` |
 | 05 | [Level 10 —「丰收」Bumper Crop](episodes/ep05_level10/) | 3:20 | `out/ep05_level10/ep05_level10_1080p_web.mp4` |
 | 06 | [Level 11 —「不夜城」The City That Never Sleeps](episodes/ep06_level11/) | 3:20 | `out/ep06_level11/ep06_level11_1080p_web.mp4` |
+| 07 | [Level 7 —「深海恐惧」Thalassophobia](episodes/ep07_level7/) | 3:20 | `out/ep07_level7/ep07_level7_1080p_web.mp4` |
 
 ## 渲染
 
