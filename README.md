@@ -9,6 +9,7 @@
 | 01 | [Level 254 —「蓝色天堂」Blue Heaven](episodes/ep01_level254/) | 3:25 | `out/ep01_level254/ep01_level254_1080p_web.mp4` |
 | 02 | [Level 0 —「门槛」Threshold](episodes/ep02_level0/) | 3:25 | `out/ep02_level0/ep02_level0_1080p_web.mp4` |
 | 03 | [Level 37 —「崇高」Sublimity（泳池房）](episodes/ep03_level37/) | 3:20 | `out/ep03_level37/ep03_level37_1080p_web.mp4` |
+| 04 | [Level 881 —「窗之庭院」The Courtyard of Windows](episodes/ep04_level881/) | 3:18 | `out/ep04_level881/ep04_level881_1080p_web.mp4` |
 
 ## 渲染
 

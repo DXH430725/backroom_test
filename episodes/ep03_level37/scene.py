@@ -173,8 +173,8 @@ RGY, RGX = np.gradient(cv2.GaussianBlur(RIP, (0, 0), 2))
 
 
 def caustics(x, y, t, scale=1.6):
-    a = CAUS_A[((y * 128 / scale + t * 9) % 256).astype(np.int64), ((x * 128 / scale + t * 5) % 256).astype(np.int64)]
-    b = CAUS_B[((y * 128 / scale - t * 6) % 256).astype(np.int64), ((x * 128 / scale + t * 8) % 256).astype(np.int64)]
+    a = CAUS_A[((y * 128 / scale + t * 9) % 256).astype(np.int64) % 256, ((x * 128 / scale + t * 5) % 256).astype(np.int64) % 256]
+    b = CAUS_B[((y * 128 / scale - t * 6) % 256).astype(np.int64) % 256, ((x * 128 / scale + t * 8) % 256).astype(np.int64) % 256]
     return np.minimum(a, b) * 1.4
 
 
@@ -199,10 +199,10 @@ def tile_grout(a, b, fw, ts=0.2, gw=0.006):
 
 
 def ripple_normal(x, y, t, amp=1.0):
-    gx = (RGX[((y * 40 + t * 7) % 256).astype(np.int64), ((x * 40 + t * 3) % 256).astype(np.int64)]
-          + RGX[((y * 23 - t * 4) % 256).astype(np.int64), ((x * 23 + t * 6) % 256).astype(np.int64)])
-    gy = (RGY[((y * 40 + t * 7) % 256).astype(np.int64), ((x * 40 + t * 3) % 256).astype(np.int64)]
-          + RGY[((y * 23 - t * 4) % 256).astype(np.int64), ((x * 23 + t * 6) % 256).astype(np.int64)])
+    gx = (RGX[((y * 40 + t * 7) % 256).astype(np.int64) % 256, ((x * 40 + t * 3) % 256).astype(np.int64) % 256]
+          + RGX[((y * 23 - t * 4) % 256).astype(np.int64) % 256, ((x * 23 + t * 6) % 256).astype(np.int64) % 256])
+    gy = (RGY[((y * 40 + t * 7) % 256).astype(np.int64) % 256, ((x * 40 + t * 3) % 256).astype(np.int64) % 256]
+          + RGY[((y * 23 - t * 4) % 256).astype(np.int64) % 256, ((x * 23 + t * 6) % 256).astype(np.int64) % 256])
     gx = gx * 6 * amp + 0.012 * amp * np.sin(x * 3.1 + t * 1.7)
     gy = gy * 6 * amp + 0.012 * amp * np.cos(y * 2.7 - t * 1.3)
     n = np.sqrt(gx * gx + gy * gy + 1)

@@ -443,3 +443,13 @@ def subs_from_lines(lines_path, tail=0.4):
         if ln.get("subtitle"):
             out.append((ln["start"], ln["start"] + ln.get("max_dur", 3) + tail, ln["subtitle"], ln.get("en", "")))
     return out
+
+
+def bloom(img, thresh=0.72, strength=0.5, sigma=14.0):
+    """soft glow around bright areas (display-referred)"""
+    b = np.clip(img - thresh, 0, None)
+    if not b.any():
+        return img
+    small = cv2.resize(b, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
+    small = cv2.GaussianBlur(small, (0, 0), sigma / 4 * S) + 0.5 * cv2.GaussianBlur(small, (0, 0), sigma * S)
+    return img + cv2.resize(small, (W, H), interpolation=cv2.INTER_LINEAR) * strength
