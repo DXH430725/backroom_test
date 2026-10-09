@@ -1,0 +1,257 @@
+{
+  "film": "Ep09 — LEVEL 9 「郊区」The Suburbs",
+  "format": {
+    "sample_rate": 48000,
+    "channels": 1,
+    "bit_depth": 24,
+    "notes": "Dry voice only. No reverb, music or effects; peaks under -3 dBFS; trim silence to ~50 ms. Effects are added in the mix."
+  },
+  "speakers": {
+    "archivist": {
+      "role": "M.E.G. archivist (same narrator in every episode)",
+      "voice": "Adult, neutral-to-low voice, any gender. Flat, clinical, measured. Must be the SAME voice as earlier episodes.",
+      "series_voice": "meg_archivist",
+      "fx": "clean"
+    },
+    "bart_post": {
+      "role": "u/Bart0nius reading his own forum post (voice-over over the post on screen). A member of the missing Explorers group who fell through the floor of Level 8.",
+      "voice": "Man, early 20s, casual, a little too calm — he half believes it's a dream. Dry, close, slightly dazed.",
+      "series_voice": "bart0nius",
+      "fx": "clean"
+    },
+    "bart": {
+      "role": "Bart0nius on his phone's camera mic, walking the street at midnight.",
+      "voice": "SAME voice as bart_post. Whispering or speaking very low most of the time; breathing audible; increasingly scared.",
+      "series_voice": "bart0nius",
+      "fx": "phone"
+    },
+    "bart_last": {
+      "role": "Bart0nius, final words before the recording corrupts.",
+      "voice": "SAME voice as bart_post. Resolved, shaky, out of breath.",
+      "series_voice": "bart0nius",
+      "fx": "corrupt"
+    }
+  },
+  "lines": [
+    {
+      "id": "a01",
+      "speaker": "archivist",
+      "start": 3.0,
+      "max_dur": 6.0,
+      "subtitle": "M.E.G. 档案，补充材料 9-B。以下帖子与视频来自失踪的「探险者」小组成员 Bart0nius。",
+      "en": "M.E.G. archive, supplement 9-B. The following post and video are from Bart0nius, a member of the missing Explorers group.",
+      "tts_text": "M.E.G.档案，补充材料九B。以下帖子与视频，来自失踪的探险者小组成员，巴特。",
+      "direction": "Clinical, as always."
+    },
+    {
+      "id": "p01",
+      "speaker": "bart_post",
+      "start": 12.0,
+      "max_dur": 7.5,
+      "subtitle": "「我在八层掉穿了地板。现在在一个小区里。是晚上。我觉得我在做梦。」",
+      "en": "“Fell through the floor in Level 8. I'm in a neighbourhood. It's night. I think I'm dreaming.”",
+      "tts_text": "我在八层掉穿了地板。现在在一个小区里。是晚上。我觉得，我在做梦。",
+      "direction": "Reading what he typed, flat, a slightly dazed half-laugh on 'dreaming'."
+    },
+    {
+      "id": "b01",
+      "speaker": "bart",
+      "start": 26.0,
+      "max_dur": 2.6,
+      "subtitle": "「……喂？有人吗？」",
+      "en": "“…Hello? Anyone?”",
+      "tts_text": "……喂？有人吗？",
+      "direction": "Lying on wet asphalt, just come to. Hoarse, not loud. Second word quieter, as if he regrets calling out."
+    },
+    {
+      "id": "a02",
+      "speaker": "archivist",
+      "start": 33.5,
+      "max_dur": 6.5,
+      "subtitle": "Level 9，「郊区」。生存难度：五级。一片永远停在午夜、没有尽头的郊区。",
+      "en": "Level 9, “The Suburbs.” Survival difficulty: 5. An infinite suburb, stopped forever at midnight.",
+      "tts_text": "Level 9，郊区。生存难度，五级。一片永远停在午夜、没有尽头的郊区。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "b02",
+      "speaker": "bart",
+      "start": 46.0,
+      "max_dur": 4.6,
+      "subtitle": "「每栋房子都不一样……里面家具都是新的。可是什么都通不了电。」",
+      "en": "“Every house is different… The furniture's new. But nothing turns on.”",
+      "tts_text": "每栋房子都不一样……里面家具都是新的。可是，什么都通不了电。",
+      "direction": "Whispering, peering through a window with his phone light."
+    },
+    {
+      "id": "a03",
+      "speaker": "archivist",
+      "start": 53.0,
+      "max_dur": 7.5,
+      "subtitle": "房子各不相同，家具齐全，而且很新，但需要供电的东西一概不工作。路灯大多是灭的，偶尔会闪一下。",
+      "en": "Every house is unique, furnished and fairly new, but nothing that needs power works. The street lamps are mostly dead; sometimes one flickers.",
+      "tts_text": "房子各不相同，家具齐全，而且很新，但需要供电的东西，一概不工作。路灯大多是灭的，偶尔，会闪一下。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "b03",
+      "speaker": "bart",
+      "start": 64.5,
+      "max_dur": 3.4,
+      "subtitle": "「那栋房子……跟对面那栋一模一样。」",
+      "en": "“That house… is exactly the same as the one across the street.”",
+      "tts_text": "那栋房子……跟对面那栋，一模一样。",
+      "direction": "Unnerved, very quiet, slowing down as he says it."
+    },
+    {
+      "id": "b04",
+      "speaker": "bart",
+      "start": 76.5,
+      "max_dur": 4.4,
+      "subtitle": "「人行道上有一堆灰……摸起来像盐。或者糖。」",
+      "en": "“There's a pile of grey dust on the sidewalk… It feels like salt. Or sugar.”",
+      "tts_text": "人行道上有一堆灰……摸起来像盐。或者，糖。",
+      "direction": "Crouching, curious, rubbing it between his fingers. Not yet afraid."
+    },
+    {
+      "id": "a04",
+      "speaker": "archivist",
+      "start": 83.0,
+      "max_dur": 5.5,
+      "subtitle": "在九层，一堆灰色的粉末，标记着一个人曾经站过的地方。",
+      "en": "On Level 9, a pile of grey dust marks the place where a person once stood.",
+      "tts_text": "在九层，一堆灰色的粉末，标记着一个人曾经站过的地方。",
+      "direction": "Clinical; the tiniest pause before 'a person'."
+    },
+    {
+      "id": "b05",
+      "speaker": "bart",
+      "start": 91.5,
+      "max_dur": 3.0,
+      "subtitle": "「手机……怎么回事，画面在花……」",
+      "en": "“My phone… what's wrong with it, the picture's breaking up…”",
+      "tts_text": "手机……怎么回事，画面在花……",
+      "direction": "Annoyed, tapping the phone, then trailing off as he sees something."
+    },
+    {
+      "id": "a05",
+      "speaker": "archivist",
+      "start": 96.5,
+      "max_dur": 6.5,
+      "subtitle": "「邻里守望」：由眼球构成的实体群。它们会干扰录像，摧毁附近的电子设备。",
+      "en": "“The Neighborhood Watch”: a group of eyeball entities. They interfere with recordings and destroy electronics nearby.",
+      "tts_text": "邻里守望。由眼球构成的实体群。它们会干扰录像，摧毁附近的电子设备。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "b06",
+      "speaker": "bart",
+      "start": 104.0,
+      "max_dur": 2.6,
+      "subtitle": "「关灯……关灯……」",
+      "en": "“Light off… light off…”",
+      "tts_text": "关灯……关灯……",
+      "direction": "Barely audible whisper, fumbling, panicked, crouching behind a car."
+    },
+    {
+      "id": "a06",
+      "speaker": "archivist",
+      "start": 108.0,
+      "max_dur": 8.0,
+      "subtitle": "守望者：汽车大小的眼球，以步行的速度漂浮。它的瞳孔会射出光，被照到的活物会化成细细的灰色粉尘。",
+      "en": "Watchers: eyeballs the size of a car, floating at walking pace. Their pupils fire a light that turns living things into fine grey dust.",
+      "tts_text": "守望者。汽车大小的眼球，以步行的速度漂浮。它的瞳孔会射出光，被照到的活物，会化成细细的灰色粉尘。",
+      "direction": "Clinical, slightly slower than usual."
+    },
+    {
+      "id": "b07",
+      "speaker": "bart",
+      "start": 120.5,
+      "max_dur": 3.6,
+      "subtitle": "「它走了……好冷。怎么突然这么冷。」",
+      "en": "“It's gone… It's cold. Why is it suddenly so cold.”",
+      "tts_text": "它走了……好冷。怎么，突然这么冷。",
+      "direction": "Shaky exhale of relief, then teeth almost chattering; you can hear his breath."
+    },
+    {
+      "id": "a07",
+      "speaker": "archivist",
+      "start": 125.5,
+      "max_dur": 6.0,
+      "subtitle": "气温骤降，浓烟一样的雾在街道上蔓延。在九层，雾是一种预兆。",
+      "en": "A sudden drop in temperature; a smoke-like fog creeping down the streets. On Level 9, fog is an omen.",
+      "tts_text": "气温骤降，浓烟一样的雾，在街道上蔓延。在九层，雾，是一种预兆。",
+      "direction": "Clinical, low."
+    },
+    {
+      "id": "b08",
+      "speaker": "bart",
+      "start": 136.0,
+      "max_dur": 3.0,
+      "subtitle": "「那是什么……那是……一根柱子？」",
+      "en": "“What is that… is that… a pillar?”",
+      "tts_text": "那是什么……那是……一根柱子？",
+      "direction": "Looking up and up, voice going small."
+    },
+    {
+      "id": "a08",
+      "speaker": "archivist",
+      "start": 140.0,
+      "max_dur": 8.5,
+      "subtitle": "「残形者」。最早的目击者描述它是「一根巨大的黑色柱子，一直伸到看不见的地方」。它大到会制造自己的天气。",
+      "en": "“The Mangled.” The first witness described “a massive black pillar, reaching up far out of sight.” It is large enough to make its own weather.",
+      "tts_text": "残形者。最早的目击者描述它是：一根巨大的黑色柱子，一直伸到看不见的地方。它大到，会制造自己的天气。",
+      "direction": "Clinical; quote the witness flatly."
+    },
+    {
+      "id": "b09",
+      "speaker": "bart",
+      "start": 150.5,
+      "max_dur": 2.2,
+      "subtitle": "「跑……快跑……」",
+      "en": "“Run… run…”",
+      "tts_text": "跑……快跑……",
+      "direction": "To himself, running, gasping between words."
+    },
+    {
+      "id": "b10",
+      "speaker": "bart",
+      "start": 156.5,
+      "max_dur": 2.6,
+      "subtitle": "「路牌……有箭头……」",
+      "en": "“A sign… there's an arrow…”",
+      "tts_text": "路牌……有箭头……",
+      "direction": "Out of breath, a flicker of hope."
+    },
+    {
+      "id": "a09",
+      "speaker": "archivist",
+      "start": 160.0,
+      "max_dur": 5.5,
+      "subtitle": "沿着带箭头的路牌走一百到两百英里，可以到达 Level 11。",
+      "en": "Following the arrow signs for one to two hundred miles leads to Level 11.",
+      "tts_text": "沿着带箭头的路牌，走一百到两百英里，可以到达 Level 11。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "b11",
+      "speaker": "bart_last",
+      "start": 167.0,
+      "max_dur": 4.0,
+      "subtitle": "「我跟着路牌走。如果有人看到这个——」",
+      "en": "“I'm following the signs. If anyone sees this—”",
+      "tts_text": "我跟着路牌走。如果有人看到这个——",
+      "direction": "Determined but shaking; cut off mid-sentence by the corruption."
+    },
+    {
+      "id": "a10",
+      "speaker": "archivist",
+      "start": 186.0,
+      "max_dur": 6.0,
+      "subtitle": "这是 Bart0nius 的最后一条帖子。「探险者」小组至今下落不明。",
+      "en": "This was Bart0nius's last post. The Explorers have never been found.",
+      "tts_text": "这是巴特的最后一条帖子。探险者小组，至今下落不明。",
+      "direction": "Clinical, but let the last sentence sit."
+    }
+  ]
+}

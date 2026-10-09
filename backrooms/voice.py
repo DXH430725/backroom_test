@@ -41,6 +41,18 @@ def _fx(x, kind):
             x[:, cut - fade:cut] *= np.linspace(1, 0, fade)
             x[:, cut:] = 0
         return x
+    if kind == "phone":       # a phone's own mic, held at arm's length outdoors
+        x = sos_filter(x, "bandpass", [160, 7000], 2)
+        x = np.tanh(x * 1.8) / 1.8
+        return reverb(x, reverb_ir(0.8, 0.5, 5000), 0.12) * 1.2
+    if kind == "corrupt":     # the same, coming apart: crushed, dropping out
+        x = _fx(x, "phone")
+        q = 2 ** 5
+        x = np.round(x * q) / q
+        n = x.shape[1]
+        blk = int(0.05 * SR)
+        keep = (np.random.default_rng(9).random(n // blk + 1) > 0.25).repeat(blk)[:n]
+        return x * keep
     if kind == "radio_far":
         x = _fx(x, "radio")
         return reverb(x, reverb_ir(2.0, 1.4, 3000), 0.35)

@@ -195,7 +195,7 @@ def put_text(img, text, cx, cy, size=40, font=FONT_CJK, color=(1, 1, 1), opacity
     a = text_alpha(text, font, size, tracking)
     h, w = a.shape
     pad = size
-    x0 = int(cx - w / 2) if anchor == "center" else int(cx - pad)
+    x0 = int(cx - w / 2) if anchor == "center" else (int(cx - w + pad) if anchor == "right" else int(cx - pad))
     y0 = int(cy - h / 2)
     layers = []
     if shadow:
@@ -220,13 +220,30 @@ def put_text(img, text, cx, cy, size=40, font=FONT_CJK, color=(1, 1, 1), opacity
 W1, H1 = W / S, H / S  # frame size in 1080p units (1920 x 1080)
 
 
+def _wrap_zh(zh, limit=38.0):
+    """split an over-long Chinese subtitle into two lines at the punctuation nearest its middle"""
+    wid = lambda u: sum(0.55 if ord(c) < 128 else 1.0 for c in u)
+    if wid(zh) <= limit:
+        return [zh]
+    best, bd = None, 1e9
+    for i, c in enumerate(zh[:-1]):
+        if c in "，。；：、！？」":
+            d = abs(wid(zh[:i + 1]) - wid(zh) / 2)
+            if d < bd:
+                best, bd = i + 1, d
+    if best is None:
+        best = len(zh) // 2
+    return [zh[:best], zh[best:]]
+
+
 def subtitles(img, t, subs, letterbox=0.0):
     """subs: [(start, end, zh, en)]"""
     for a, b, zh, en in subs:
         if a <= t <= b:
             op = min(1, (t - a) / 0.5, (b - t) / 0.5)
             yb = H1 - 60 if letterbox > 0.5 else H1 - 175
-            put_text(img, zh, W1 / 2, yb - 50, 44, FONT_CJK, (1, 1, 1), op, shadow=0.75)
+            for k, line in enumerate(reversed(_wrap_zh(zh))):
+                put_text(img, line, W1 / 2, yb - 50 - 56 * k, 44, FONT_CJK, (1, 1, 1), op, shadow=0.75)
             if en:
                 put_text(img, en, W1 / 2, yb + 2, 28, FONT_ITALIC, (0.86, 0.9, 1.0), op * 0.9, shadow=0.7)
 
