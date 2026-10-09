@@ -7,6 +7,8 @@
 | 集 | 层级 | 时长 | 1080p 成片 |
 |---|---|---|---|
 | 01 | [Level 254 —「蓝色天堂」Blue Heaven](episodes/ep01_level254/) | 3:25 | `out/ep01_level254/ep01_level254_1080p_web.mp4` |
+| 02 | [Level 0 —「门槛」Threshold](episodes/ep02_level0/) | 3:25 | `out/ep02_level0/ep02_level0_1080p_web.mp4` |
+| 03 | [Level 37 —「崇高」Sublimity（泳池房）](episodes/ep03_level37/) | 3:20 | `out/ep03_level37/ep03_level37_1080p_web.mp4` |
 
 ## 渲染
 
@@ -29,6 +31,7 @@ python3 -m backrooms.render <集名> --still 30,90     # 只渲染几张静帧�
 
 - `backrooms/core.py`：分辨率、摄像机、文字、VHS、故障、颗粒、HUD、字幕、档案卡
 - `backrooms/sound.py`：合成器、乐器、滤波、混响
+- `backrooms/gridworld.py`：网格世界逐像素光线投射器（薄墙、门洞、拱门、柱子、深坑、不同的地面和天花板高度、水面）
 - `backrooms/voice.py`：配音混入和音乐避让
 - `backrooms/render.py`：渲染、混音、封装的命令行入口
 - `episodes/epNN_xxx/`：每集的 `scene.py`（场景）、`film.py`（分镜）、`audio.py`（配乐）、`voice/lines.json`（配音台本）

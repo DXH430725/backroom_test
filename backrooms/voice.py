@@ -33,6 +33,14 @@ def _fx(x, kind):
     if kind == "distant":     # far away in a big space
         x = sos_filter(x, "lowpass", 2500)
         return reverb(x, reverb_ir(3.0, 2.5, 3000), 0.7) * 0.8
+    if kind == "muffled":     # speech swallowed by the room: dulled, then cut off mid-word
+        x = sos_filter(x, "lowpass", 900, 2) * 1.6
+        cut = int(0.55 * SR)
+        if x.shape[1] > cut:
+            fade = int(0.02 * SR)
+            x[:, cut - fade:cut] *= np.linspace(1, 0, fade)
+            x[:, cut:] = 0
+        return x
     if kind == "radio_far":
         x = _fx(x, "radio")
         return reverb(x, reverb_ir(2.0, 1.4, 3000), 0.35)

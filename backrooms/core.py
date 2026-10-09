@@ -384,3 +384,62 @@ def finish(img, rng, t, vh=0.0, gl=0.0, gr=0.02, vig=0.55, hud_args=None, lb=0.0
     if fade is not None and fade[1] > 0:
         img = img * (1 - fade[1]) + np.array(fade[0], np.float32) * fade[1]
     return (np.clip(img, 0, 1) * 255 + 0.5).astype(np.uint8)
+
+
+# ----------------------------------------------------------------------------
+# walking paths
+# ----------------------------------------------------------------------------
+class Path:
+    """A walkable 2D polyline (world metres) with rounded corners and arc-length lookup."""
+
+    def __init__(self, pts, rounds=3):
+        P = np.asarray(pts, np.float64)
+        for _ in range(rounds):  # Chaikin corner cutting, keep the end points
+            if len(P) < 3:
+                break
+            Q = [P[0]]
+            for a, b in zip(P[:-1], P[1:]):
+                Q.append(0.75 * a + 0.25 * b)
+                Q.append(0.25 * a + 0.75 * b)
+            Q.append(P[-1])
+            P = np.array(Q)
+        self.P = P
+        seg = np.linalg.norm(np.diff(P, axis=0), axis=1)
+        self.s = np.concatenate([[0], np.cumsum(seg)])
+        self.length = float(self.s[-1])
+
+    def at(self, s):
+        s = float(np.clip(s, 0, self.length))
+        x = np.interp(s, self.s, self.P[:, 0])
+        y = np.interp(s, self.s, self.P[:, 1])
+        return np.array([x, y])
+
+    def yaw(self, s, ahead=1.5):
+        a = self.at(s - 0.3)
+        b = self.at(s + ahead)
+        if np.allclose(a, b):
+            a = self.at(s - ahead)
+            b = self.at(s)
+        d = b - a
+        return math.degrees(math.atan2(d[0], d[1]))
+
+
+def walk_bob(t, speed, amp=0.022):
+    """vertical head bob for walking at `speed` m/s"""
+    return amp * min(speed / 1.2, 1.5) * math.sin(2 * math.pi * 1.75 * t)
+
+
+def unwrap_deg(a, ref):
+    """bring angle a (deg) within 180 of ref"""
+    return ref + ((a - ref + 180) % 360) - 180
+
+
+def subs_from_lines(lines_path, tail=0.4):
+    """captions straight from a voice script: [(start, end, zh, en)]"""
+    import json
+    spec = json.load(open(lines_path, encoding="utf-8"))
+    out = []
+    for ln in spec["lines"]:
+        if ln.get("subtitle"):
+            out.append((ln["start"], ln["start"] + ln.get("max_dur", 3) + tail, ln["subtitle"], ln.get("en", "")))
+    return out

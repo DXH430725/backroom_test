@@ -1,0 +1,206 @@
+{
+  "film": "Ep03 — LEVEL 37 「崇高」Sublimity",
+  "format": {
+    "sample_rate": 48000,
+    "channels": 1,
+    "bit_depth": 24,
+    "notes": "Dry voice only. No reverb, music or effects; peaks under -3 dBFS; trim silence to ~50 ms. Effects are added in the mix."
+  },
+  "speakers": {
+    "archivist": {
+      "role": "M.E.G. archivist narrating the recovered tape (same narrator in every episode)",
+      "voice": "Adult, neutral-to-low voice, any gender. Flat, clinical, measured. Must be the SAME voice as the archivist in Ep01/Ep02.",
+      "series_voice": "meg_archivist",
+      "fx": "clean"
+    },
+    "swimmer": {
+      "role": "A lone wanderer, a woman in her late 20s, who dived into the water of Level 58 and surfaced here. She filmed with a waterproof camera.",
+      "voice": "Woman, late 20s, soft and breathy, speaking quietly to herself. Calm, awed, increasingly peaceful — never frightened enough to shout.",
+      "series_voice": "swimmer_037s",
+      "fx": "whisper"
+    }
+  },
+  "lines": [
+    {
+      "id": "a01",
+      "speaker": "archivist",
+      "start": 3.4,
+      "max_dur": 6.4,
+      "subtitle": "录像编号 037-S。她从 Level 58 的水里潜了下去。再浮上来时，已经在这里了。",
+      "en": "Tape 037-S. She dived into the water of Level 58. When she came up, she was here.",
+      "tts_text": "录像编号，零三七，S。她从五十八层的水里潜了下去。再浮上来时，已经在这里了。",
+      "direction": "Clinical, even."
+    },
+    {
+      "id": "w01",
+      "speaker": "swimmer",
+      "start": 21.6,
+      "max_dur": 2.2,
+      "subtitle": "「（喘气）……天哪。」",
+      "en": "“(gasps) …Oh my god.”",
+      "tts_text": "……天哪。",
+      "direction": "Just surfaced, catching her breath, stunned and amazed. Breathy."
+    },
+    {
+      "id": "a02",
+      "speaker": "archivist",
+      "start": 26.0,
+      "max_dur": 5.0,
+      "subtitle": "Level 37，「崇高」。人们更习惯叫它「泳池房」。",
+      "en": "Level 37, “Sublimity”. Most people call it the Poolrooms.",
+      "tts_text": "三十七层，「崇高」。人们更习惯叫它，「泳池房」。",
+      "direction": "Report tone."
+    },
+    {
+      "id": "a03",
+      "speaker": "archivist",
+      "start": 40.0,
+      "max_dur": 6.0,
+      "subtitle": "几乎所有表面都铺着白色瓷砖。崭新，完美，无法破坏。",
+      "en": "Almost every surface is white ceramic tile. Pristine. Flawless. Indestructible.",
+      "tts_text": "几乎所有表面，都铺着白色瓷砖。崭新，完美，无法破坏。",
+      "direction": "Measured; a short beat between the three adjectives."
+    },
+    {
+      "id": "a04",
+      "speaker": "archivist",
+      "start": 47.5,
+      "max_dur": 6.0,
+      "subtitle": "水是温的，含有泻盐。它会让你的肌肉放松，让疼痛消失。",
+      "en": "The water is warm, and full of Epsom salt. It relaxes the muscles. It makes the pain go away.",
+      "tts_text": "水是温的，含有泻盐。它会让你的肌肉放松，让疼痛消失。",
+      "direction": "Flat, but a little softer on 让疼痛消失."
+    },
+    {
+      "id": "w02",
+      "speaker": "swimmer",
+      "start": 64.0,
+      "max_dur": 2.4,
+      "subtitle": "「……太美了。」",
+      "en": "“…It’s beautiful.”",
+      "tts_text": "……太美了。",
+      "direction": "Whispered, overwhelmed, almost tearful."
+    },
+    {
+      "id": "a05",
+      "speaker": "archivist",
+      "start": 69.0,
+      "max_dur": 5.5,
+      "subtitle": "这里没有实体，没有基地，没有人。没有人知道为什么。",
+      "en": "No entities. No bases. No people. No one knows why.",
+      "tts_text": "这里没有实体，没有基地，没有人。没有人知道为什么。",
+      "direction": "Report tone."
+    },
+    {
+      "id": "w03",
+      "speaker": "swimmer",
+      "start": 87.0,
+      "max_dur": 1.4,
+      "subtitle": "「喂——」",
+      "en": "“Hello—”",
+      "tts_text": "喂——有人吗",
+      "direction": "Calling out across the hall, medium volume. (The mix will cut it off mid-word on purpose.)",
+      "fx": "muffled"
+    },
+    {
+      "id": "a06",
+      "speaker": "archivist",
+      "start": 90.5,
+      "max_dur": 6.5,
+      "subtitle": "声音在这里会突然消失。回声不对劲。说话听起来，像隔着一层什么东西。",
+      "en": "Sound drops off without warning. The echoes are wrong. Speech sounds like it’s coming through something.",
+      "tts_text": "声音在这里会突然消失。回声不对劲。说话听起来，像隔着一层什么东西。",
+      "direction": "Report tone, slow."
+    },
+    {
+      "id": "a07",
+      "speaker": "archivist",
+      "start": 107.0,
+      "max_dur": 5.0,
+      "subtitle": "有些楼梯会一直向下，通进深不见底的水里。",
+      "en": "Some staircases keep going down, into water with no bottom.",
+      "tts_text": "有些楼梯会一直向下，通进深不见底的水里。",
+      "direction": "Quiet, flat."
+    },
+    {
+      "id": "w04",
+      "speaker": "swimmer",
+      "start": 116.5,
+      "max_dur": 2.4,
+      "subtitle": "「……下面有什么？」",
+      "en": "“…What’s down there?”",
+      "tts_text": "……下面，有什么？",
+      "direction": "Uneasy whisper, curious more than scared."
+    },
+    {
+      "id": "a08",
+      "speaker": "archivist",
+      "start": 120.0,
+      "max_dur": 1.8,
+      "subtitle": "不要下去。",
+      "en": "Don’t go down.",
+      "tts_text": "不要下去。",
+      "direction": "Cold, firm."
+    },
+    {
+      "id": "a09",
+      "speaker": "archivist",
+      "start": 131.5,
+      "max_dur": 5.5,
+      "subtitle": "光线从奇怪的角度照进来。有些地方，一点光都没有。",
+      "en": "Light falls in at strange angles. Some places get none at all.",
+      "tts_text": "光线从奇怪的角度照进来。有些地方，一点光都没有。",
+      "direction": "Report tone."
+    },
+    {
+      "id": "a10",
+      "speaker": "archivist",
+      "start": 140.5,
+      "max_dur": 6.0,
+      "subtitle": "那种黑暗不像危险。更像一个你早就做过的噩梦——熟悉得让人安心不下来。",
+      "en": "The dark doesn’t feel dangerous. It feels like a nightmare you’ve had before — too familiar to be comforting.",
+      "tts_text": "那种黑暗不像危险。更像一个你早就做过的噩梦，熟悉得让人安心不下来。",
+      "direction": "Slow, a touch quieter."
+    },
+    {
+      "id": "w05",
+      "speaker": "swimmer",
+      "start": 153.5,
+      "max_dur": 3.2,
+      "subtitle": "「我想……在这里待一会儿。」",
+      "en": "“I think I’ll… stay here a while.”",
+      "tts_text": "我想……在这里待一会儿。",
+      "direction": "Floating on her back, deeply relaxed, smiling, sleepy."
+    },
+    {
+      "id": "a11",
+      "speaker": "archivist",
+      "start": 158.5,
+      "max_dur": 5.5,
+      "subtitle": "就算没有任何东西碰过，水也一直在轻轻地动。像潮汐。",
+      "en": "Even when nothing touches it, the water keeps moving. Like a tide.",
+      "tts_text": "就算没有任何东西碰过，水也一直在轻轻地动。像潮汐。",
+      "direction": "Report tone, gentle."
+    },
+    {
+      "id": "a12",
+      "speaker": "archivist",
+      "start": 166.5,
+      "max_dur": 5.5,
+      "subtitle": "如果你让自己沉下去——你可能会从另一个地方浮上来。",
+      "en": "If you let yourself sink — you may come up somewhere else.",
+      "tts_text": "如果你让自己沉下去，你可能会从另一个地方，浮上来。",
+      "direction": "Slow, a beat before 浮上来."
+    },
+    {
+      "id": "a13",
+      "speaker": "archivist",
+      "start": 186.4,
+      "max_dur": 7.0,
+      "subtitle": "她日志里的最后一句是：「难以形容地奇怪，又难以形容地完美。」",
+      "en": "The last line in her journal: “Indescribably strange, yet indescribably perfect.”",
+      "tts_text": "她日志里的最后一句是，难以形容地奇怪，又难以形容地完美。",
+      "direction": "Quiet, final."
+    }
+  ]
+}
