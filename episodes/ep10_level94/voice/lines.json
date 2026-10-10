@@ -1,0 +1,252 @@
+{
+  "film": "Ep10 — LEVEL 94 「动画」Motion",
+  "format": {
+    "sample_rate": 48000,
+    "channels": 1,
+    "bit_depth": 24,
+    "notes": "Dry voice only. No reverb, music or effects; peaks under -3 dBFS; trim silence to ~50 ms. Effects are added in the mix."
+  },
+  "speakers": {
+    "archivist": {
+      "role": "M.E.G. archivist (same narrator in every episode)",
+      "voice": "Adult, neutral-to-low voice, any gender. Flat, clinical, measured. Must be the SAME voice as earlier episodes.",
+      "series_voice": "meg_archivist",
+      "fx": "clean"
+    },
+    "mara": {
+      "role": "Mara Quist, M.E.G. field researcher, filming Level 94 on a hand-cranked camera she found in the Hub. Curious, warm, wry; her wonder turns to fear after dark.",
+      "voice": "Woman, late 20s, bright and articulate, a little breathless with delight at first; later whispering, frightened.",
+      "series_voice": "mara_quist",
+      "fx": "clean"
+    },
+    "animation": {
+      "role": "One of the Animations: a black-and-white 1930s rubber-hose cartoon figure. Cheerful, sing-song, utterly wrong.",
+      "voice": "High, nasal, chipper 1930s cartoon-character voice (any gender), sing-song cadence, a giggle in it. Original character voice — do NOT imitate any existing cartoon character or actor.",
+      "series_voice": "animation_94",
+      "fx": "vintage",
+      "pan": 0.3
+    }
+  },
+  "lines": [
+    {
+      "id": "a01",
+      "speaker": "archivist",
+      "start": 3.0,
+      "max_dur": 6.0,
+      "subtitle": "M.E.G. 档案，第 94 层外勤胶片。拍摄者：外勤研究员玛拉·奎斯特。",
+      "en": "M.E.G. archive, Level 94 field film. Camera: field researcher Mara Quist.",
+      "tts_text": "M.E.G.档案，第九十四层外勤胶片。拍摄者，外勤研究员，玛拉·奎斯特。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "m01",
+      "speaker": "mara",
+      "start": 21.0,
+      "max_dur": 3.4,
+      "subtitle": "「好了，穿过洞口……哇哦。」",
+      "en": "“Okay, through the hole… whoa.”",
+      "tts_text": "好了，穿过洞口……哇哦。",
+      "direction": "Climbing through, grunting slightly, then genuine delight."
+    },
+    {
+      "id": "a02",
+      "speaker": "archivist",
+      "start": 25.5,
+      "max_dur": 7.0,
+      "subtitle": "Level 94，「动画」。生存难度：三级。这里的一切看起来都像是手工捏出来、一帧一帧拍出来的。",
+      "en": "Level 94, “Motion.” Survival difficulty: 3. Everything here looks handmade, and moves as if it were filmed one frame at a time.",
+      "tts_text": "Level 94，动画。生存难度，三级。这里的一切，看起来都像是手工捏出来、一帧一帧拍出来的。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "m02",
+      "speaker": "mara",
+      "start": 35.0,
+      "max_dur": 4.4,
+      "subtitle": "「草是……黏土做的。整座山都是黏土。」",
+      "en": "“The grass is… clay. The whole hill is clay.”",
+      "tts_text": "草是……黏土做的。整座山，都是黏土。",
+      "direction": "Crouching, pressing it with a finger, laughing in disbelief."
+    },
+    {
+      "id": "m03",
+      "speaker": "mara",
+      "start": 42.0,
+      "max_dur": 4.0,
+      "subtitle": "「山坡中间立着一面墙，旁边摆着沙发和台灯。只有一面墙。」",
+      "en": "“There's a wall standing in the middle of the hill, with a sofa and a lamp. Just one wall.”",
+      "tts_text": "山坡中间立着一面墙，旁边摆着沙发和台灯。只有一面墙。",
+      "direction": "Amused, puzzled."
+    },
+    {
+      "id": "a03",
+      "speaker": "archivist",
+      "start": 47.5,
+      "max_dur": 6.5,
+      "subtitle": "山丘无限延伸，散落着来历不明的汽车、一座水塔，以及只剩一面墙的房间。",
+      "en": "The hills go on forever, scattered with stray cars, a water tower, and rooms reduced to a single wall.",
+      "tts_text": "山丘无限延伸，散落着来历不明的汽车、一座水塔，以及只剩一面墙的房间。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "m04",
+      "speaker": "mara",
+      "start": 55.0,
+      "max_dur": 3.4,
+      "subtitle": "「天上那个……是一座城堡吗？」",
+      "en": "“Is that… a castle, up in the sky?”",
+      "tts_text": "天上那个……是一座城堡吗？",
+      "direction": "Looking up, awed."
+    },
+    {
+      "id": "a04",
+      "speaker": "archivist",
+      "start": 59.0,
+      "max_dur": 6.0,
+      "subtitle": "漂浮城堡，立在一座「透明的山」上。城堡里只有守卫，还有动画之王。",
+      "en": "The floating castle stands on a “transparent mountain.” Inside there are only guards, and the Animated King.",
+      "tts_text": "漂浮城堡，立在一座透明的山上。城堡里只有守卫，还有，动画之王。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "a05",
+      "speaker": "archivist",
+      "start": 68.5,
+      "max_dur": 7.0,
+      "subtitle": "小镇是二十世纪三十年代的样式。中央喷泉里流的是杏仁水，送奶车里装的是杏仁奶。白天，这里没有实体。",
+      "en": "The town is styled after the 1930s. The central fountain runs with Almond Water; the milk vans carry Almond Milk. By day, there are no entities here.",
+      "tts_text": "小镇是二十世纪三十年代的样式。中央喷泉里流的，是杏仁水，送奶车里装的，是杏仁奶。白天，这里没有实体。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "m05",
+      "speaker": "mara",
+      "start": 77.5,
+      "max_dur": 4.0,
+      "subtitle": "「墙上有指纹。很大的指纹。……是谁捏的这些？」",
+      "en": "“There are fingerprints on the walls. Big ones. …Who made all this?”",
+      "tts_text": "墙上有指纹。很大的指纹。……是谁，捏的这些？",
+      "direction": "Touching a house; the delight cools into unease on the last question."
+    },
+    {
+      "id": "a06",
+      "speaker": "archivist",
+      "start": 83.0,
+      "max_dur": 5.5,
+      "subtitle": "镇上的警报柱会定时播放欢快的卡通音乐。只要音乐还在响，就是安全的。",
+      "en": "Siren poles in the town play happy cartoon music at intervals. As long as the music plays, you are safe.",
+      "tts_text": "镇上的警报柱，会定时播放欢快的卡通音乐。只要音乐还在响，就是安全的。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "m06",
+      "speaker": "mara",
+      "start": 97.5,
+      "max_dur": 2.8,
+      "subtitle": "「……音乐怎么慢下来了？」",
+      "en": "“…Why is the music slowing down?”",
+      "tts_text": "……音乐怎么慢下来了？",
+      "direction": "Uneasy, listening."
+    },
+    {
+      "id": "a07",
+      "speaker": "archivist",
+      "start": 102.5,
+      "max_dur": 6.0,
+      "subtitle": "入夜后，音乐会彻底停止。然后，「动画」们就出来了。",
+      "en": "At night the music stops completely. Then the Animations come out.",
+      "tts_text": "入夜后，音乐会彻底停止。然后，动画们，就出来了。",
+      "direction": "Clinical, slower."
+    },
+    {
+      "id": "m07",
+      "speaker": "mara",
+      "start": 114.0,
+      "max_dur": 3.0,
+      "subtitle": "「街那头……有个东西。它是平的。」",
+      "en": "“At the end of the street… there's something. It's flat.”",
+      "tts_text": "街那头……有个东西。它是，平的。",
+      "direction": "Whisper; the word 'flat' comes out wrong, disbelieving."
+    },
+    {
+      "id": "x01",
+      "speaker": "animation",
+      "start": 119.5,
+      "max_dur": 4.2,
+      "subtitle": "「嘿，朋友！天黑了还在外面晃呀？你看起来……可一点都不像动画哟！」",
+      "en": "“Hey, pal! Out after dark? You don't look very… animated!”",
+      "tts_text": "嘿，朋友！天黑了还在外面晃呀？你看起来……可一点都不像动画哟！",
+      "direction": "Sing-song, cheerful, with a giggle; the pause before 'animated' is a little too long."
+    },
+    {
+      "id": "a08",
+      "speaker": "archivist",
+      "start": 125.0,
+      "max_dur": 6.0,
+      "subtitle": "「动画」只在夜里出现，一旦发现你就会发起猛烈攻击。它们专门攻击看起来不像动画的东西。",
+      "en": "Animations appear only at night and attack violently once they spot you. They target anything that does not look animated.",
+      "tts_text": "动画，只在夜里出现，一旦发现你，就会发起猛烈攻击。它们专门攻击，看起来不像动画的东西。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "m08",
+      "speaker": "mara",
+      "start": 133.0,
+      "max_dur": 3.0,
+      "subtitle": "「越来越多了……从每扇门里出来……」",
+      "en": "“There are more… coming out of every door…”",
+      "tts_text": "越来越多了……从每扇门里出来……",
+      "direction": "Frightened whisper, backing away."
+    },
+    {
+      "id": "x02",
+      "speaker": "animation",
+      "start": 139.0,
+      "max_dur": 2.4,
+      "subtitle": "「一起来玩嘛——！」",
+      "en": "“Come and play—!”",
+      "tts_text": "一起来玩嘛——！",
+      "direction": "Gleeful, the last syllable stretched into a shriek of a laugh."
+    },
+    {
+      "id": "m09",
+      "speaker": "mara",
+      "start": 146.0,
+      "max_dur": 2.6,
+      "subtitle": "「门！那扇木门——」",
+      "en": "“A door! That wooden door—”",
+      "tts_text": "门！那扇木门——",
+      "direction": "Running, gasping."
+    },
+    {
+      "id": "a09",
+      "speaker": "archivist",
+      "start": 150.5,
+      "max_dur": 5.5,
+      "subtitle": "小镇上有些房子的门通往别的层级：Level 7、Level 9 和 Level 53。",
+      "en": "Some houses in the town lead elsewhere: to Level 7, Level 9, and Level 53.",
+      "tts_text": "小镇上有些房子的门，通往别的层级。Level 7、Level 9，和 Level 53。",
+      "direction": "Clinical."
+    },
+    {
+      "id": "m10",
+      "speaker": "mara",
+      "start": 165.0,
+      "max_dur": 3.6,
+      "subtitle": "「……下雨了？路灯……这里是……九层？」",
+      "en": "“…Rain? A streetlight… is this… Level 9?”",
+      "tts_text": "……下雨了？路灯……这里是……九层？",
+      "direction": "Out of breath, disoriented, in the dark; colour has come back to her voice and she doesn't like it."
+    },
+    {
+      "id": "a10",
+      "speaker": "archivist",
+      "start": 186.0,
+      "max_dur": 6.0,
+      "subtitle": "奎斯特研究员的胶片在 Level 9 的一座门廊下被找到。胶片的最后一段，不再是定格动画。",
+      "en": "Researcher Quist's film was found on a porch in Level 9. Its last stretch is no longer stop-motion.",
+      "tts_text": "奎斯特研究员的胶片，在 Level 9 的一座门廊下被找到。胶片的最后一段，不再是定格动画。",
+      "direction": "Clinical; let it hang."
+    }
+  ]
+}

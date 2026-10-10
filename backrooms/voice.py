@@ -41,6 +41,12 @@ def _fx(x, kind):
             x[:, cut - fade:cut] *= np.linspace(1, 0, fade)
             x[:, cut:] = 0
         return x
+    if kind == "vintage":     # a 1930s cartoon soundtrack: narrow, bright, crackling
+        x = sos_filter(x, "bandpass", [320, 3400], 3)
+        x = np.tanh(x * 2.5) / 2.5
+        n = x.shape[1]
+        crackle = (np.random.default_rng(3).random(n) < 0.0015) * np.random.default_rng(4).uniform(-0.3, 0.3, n)
+        return x * 1.3 + crackle
     if kind == "phone":       # a phone's own mic, held at arm's length outdoors
         x = sos_filter(x, "bandpass", [160, 7000], 2)
         x = np.tanh(x * 1.8) / 1.8
